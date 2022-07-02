@@ -20,8 +20,23 @@ public class randomGroups {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        List<String> list = new ArrayList<String>(
-                Arrays.asList("Bandar", "Nada", "Cookie", "Tomo", "Eun Hye", "Gemma"));
+        List<String> list = new ArrayList<String>(Arrays.asList());
+        Scanner input = new Scanner(System.in);
+
+        System.out.println(
+                "Enter a student's name and then press enter to provide additional names. When finished, type 'stop'");
+
+        while (true) {
+            String studentName = input.nextLine();
+            if ("stop".equalsIgnoreCase(studentName)) {
+                break;
+            }
+            list.add(studentName);
+        }
+
+        System.out.println("Entered Students: " + list);
+        input.close();
+
         int s = 0;
         while (s < 10) {
             shuffle(list);
@@ -33,10 +48,17 @@ public class randomGroups {
         System.out.println("\n\t" + "Group" + "\t\t" + "Members");
 
         int i = 0;
-        while (i < list.size()) {
+        grouping: while (i < list.size()) {
             int groupNumber = i / 2 + 1;
             System.out.println("\t" + "Group " + groupNumber + ":\t" + list.get(i) + " & " + list.get(i + 1));
             i += 2;
+            if (i == list.size() - 1) {
+                System.out.println(
+                        "\n" + "Individual Student Alert: " + list.get(i) + "\nPlease pair with previous group");
+                break;
+            } else {
+                continue grouping;
+            }
         }
     }
 }
