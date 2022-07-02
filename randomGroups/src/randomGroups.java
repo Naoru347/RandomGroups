@@ -53,8 +53,7 @@ public class randomGroups {
             System.out.println("\t" + "Group " + groupNumber + ":\t" + list.get(i) + " & " + list.get(i + 1));
             i += 2;
             if (i == list.size() - 1) {
-                System.out.println(
-                        "\n" + "Individual Student Alert: " + list.get(i) + "\nPlease pair with previous group");
+                System.out.print(" & " + list.get(i));
                 break;
             } else {
                 continue grouping;
