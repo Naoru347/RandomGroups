@@ -1,3 +1,9 @@
+
+/*
+ * This program (v. 0.2) takes a list of student names from the user
+ * Randomizes that list of names,
+ * And creates pairs for a group activity
+ */
 import java.util.*;
 
 public class randomGroups {
@@ -45,12 +51,12 @@ public class randomGroups {
         System.out.println("Shuffling students.");
         Thread.sleep(5000);
         System.out.println("Below are your group assignments for the team presentations");
-        System.out.println("\n\t" + "Group" + "\t\t" + "Members");
+        System.out.print("\n\t" + "Group" + "\t\t" + "Members");
 
         int i = 0;
         grouping: while (i < list.size()) {
             int groupNumber = i / 2 + 1;
-            System.out.println("\t" + "Group " + groupNumber + ":\t" + list.get(i) + " & " + list.get(i + 1));
+            System.out.print("\n\t" + "Group " + groupNumber + ":\t" + list.get(i) + " & " + list.get(i + 1));
             i += 2;
             if (i == list.size() - 1) {
                 System.out.print(" & " + list.get(i));
