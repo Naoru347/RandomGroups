@@ -13,3 +13,4 @@ O Get group size from the user
 O Get number of groups from the user to generate groupings
 O Change the pairing function based on the user input
 O Add a graphical interface
+O UPDATE save function to only save to CSV when explicitly called by the user.
