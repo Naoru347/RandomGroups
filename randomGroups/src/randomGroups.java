@@ -1,10 +1,11 @@
 
-/*
+/* 
  * This program (v. 0.2) takes a list of student names from the user
  * Randomizes that list of names,
  * And creates pairs for a group activity
  */
 import java.util.*;
+import java.io.FileWriter;
 
 public class randomGroups {
     public static void shuffle(List<?> list) {
@@ -32,16 +33,21 @@ public class randomGroups {
         System.out.println(
                 "Enter a student's name and then press enter to provide additional names. When finished, type 'stop'");
 
-        while (true) {
-            String studentName = input.nextLine();
-            if ("stop".equalsIgnoreCase(studentName)) {
-                break;
+        try {
+            FileWriter save = new FileWriter("save_list.csv");
+            while (true) {
+                String studentName = input.nextLine();
+                if ("stop".equalsIgnoreCase(studentName)) {
+                    break;
+                }
+                list.add(studentName);
+                save.write(studentName + ",");
             }
-            list.add(studentName);
+            System.out.println("Entered Students: " + list);
+            input.close();
+            save.close();
+        } catch (Exception e) {
         }
-
-        System.out.println("Entered Students: " + list);
-        input.close();
 
         int s = 0;
         while (s < 10) {
