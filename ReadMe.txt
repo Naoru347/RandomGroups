@@ -7,7 +7,7 @@ New versions will:
 0 Add ability to get list entries from the user to populate the list
 0 Updating pairing to allow for groups of 3 if num studs is odd
 0 Remove hard coding of the names
-OSave user input to a CSV file
+0Save user input to a CSV file
 O Read from a CSV file
 O Get group size from the user
 O Get number of groups from the user to generate groupings
