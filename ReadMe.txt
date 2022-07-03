@@ -1,4 +1,4 @@
-This program version 0.2 is designed to use the terminal
+This program version 0.3 is designed to use the terminal
 to get a list of student names from the users; 
 randomized that list 10 times;
 and pair students together.
