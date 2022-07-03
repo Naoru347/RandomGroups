@@ -7,5 +7,6 @@ New versions will:
 O Save user input to a CSV file
 O Read from a CSV file
 O Get group size from the user
+O Get number of groups from the user to generate groupings
 O Change the pairing function based on the user input
 O Add a graphical interface
