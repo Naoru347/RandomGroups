@@ -30,6 +30,17 @@ public class randomGroups {
                 if ("stop".equalsIgnoreCase(studentName)) {
                     break;
                 }
+                if ("y".equalsIgnoreCase(studentName)) {
+                    // here you'll call the method to read from a file and populate the array list
+                    // that way
+                    System.out.println("Please enter file name, including the file type (e.g., .CSV).");
+                    // method call to file reader listImport
+                    break;
+                } else if ("n".equalsIgnoreCase(studentName)) {
+                    System.out.println("At present, only .CSV files are accepted." +
+                            "\nPlease reformat your file and try again.");
+                    System.exit(0);
+                }
                 // adds student name to the arrayList and to the CSV file, appending a comma
                 list.add(studentName);
                 save.write(studentName + ",");
@@ -40,16 +51,16 @@ public class randomGroups {
             save.close();
         } catch (Exception e) {
         }
-        // runs shuffle method 10x
+        // runs shuffle method 100x
         int s = 0;
-        while (s < 10) {
+        while (s < 100) {
             shuffle(list);
             s++;
         }
         // prints dummy 'processing' message, pauses 5000ms, formats output
-        System.out.println("Shuffling students.");
+        System.out.println("\nShuffling students.");
         Thread.sleep(5000);
-        System.out.println("Below are your group assignments for the team presentations");
+        System.out.println("\nBelow are your group assignments:");
         System.out.print("\n\t" + "Group" + "\t\t" + "Members");
 
         // pulls student information from shuffled arrayList 2 at a time and prints it
@@ -97,17 +108,17 @@ public class randomGroups {
     // or MANUAL
     public static void inputSelect() throws InterruptedException {
         System.out.println("Enter 'F' to load class information from the CSV file, " +
-                "\n Or enter 'M' to manually enter your class information: ");
+                "\n Enter 'M' to manually enter your class information: ");
 
         String methodSelection = input.nextLine();
         String choice = methodSelection.toLowerCase();
         switch (choice) {
             case "f":
-                System.out.println("Please enter file name, including the file type (e.g., .CSV).");
-                // add method call to file reader?
+                System.out.println("Is file the file a CSV (comma separate values) file?" +
+                        "\nEnter Y for yes or N for no");
                 break;
             case "m":
-                System.out.println("Enter a student's name and then press enter to provide additional names. " +
+                System.out.println("Enter a student's name and then press enter to provide additional names." +
                         " When finished, type 'stop'");
                 break;
             default:
@@ -116,4 +127,11 @@ public class randomGroups {
                 System.exit(0);
         }
     }
+    /**
+     * Here you'll put your file import method listImport(). It'll need to import
+     * data from the
+     * CSV file, toss it into the
+     * arrayList and then pass that information back to the main method to create
+     * the groups and spit out information.
+     */
 }
