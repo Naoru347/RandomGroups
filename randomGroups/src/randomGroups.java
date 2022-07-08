@@ -8,17 +8,80 @@ import java.util.*;
 import java.io.FileWriter;
 
 public class randomGroups {
+
+    public static Scanner input = new Scanner(System.in);
+
+    public static void main(String[] args) throws InterruptedException {
+        List<String> list = new ArrayList<String>(Arrays.asList());
+
+        // method call to inputSelect
+        inputSelect();
+        // tryCatch for collecting data from user to populate arrayList and write to CSV
+        // file.
+        try {
+            FileWriter save = new FileWriter("save_list.csv");
+            while (true) {
+                String studentName = input.nextLine();
+                // control statement to exit data input
+                if ("stop".equalsIgnoreCase(studentName)) {
+                    break;
+                }
+                // adds student name to the arrayList and to the CSV file, appending a comma
+                list.add(studentName);
+                save.write(studentName + ",");
+            }
+            // summarizes the student list and closes the file and inputStream
+            System.out.println("Entered Students: " + list);
+            input.close();
+            save.close();
+        } catch (Exception e) {
+        }
+        // runs shuffle method 10x
+        int s = 0;
+        while (s < 10) {
+            shuffle(list);
+            s++;
+        }
+        // prints dummy 'processing' message, pauses 5000ms, formats output
+        System.out.println("Shuffling students.");
+        Thread.sleep(5000);
+        System.out.println("Below are your group assignments for the team presentations");
+        System.out.print("\n\t" + "Group" + "\t\t" + "Members");
+
+        // pulls student information from shuffled arrayList 2 at a time and prints it
+        // for the user
+        int i = 0;
+        grouping: while (i < list.size()) {
+            int groupNumber = i / 2 + 1;
+            System.out.print("\n\t" + "Group " + groupNumber + ":\t" + list.get(i) + " & " + list.get(i + 1));
+            i += 2;
+            // adds a third person to the final group if list.size == odd
+            if (i == list.size() - 1) {
+                System.out.print(" & " + list.get(i));
+                break;
+            } else {
+                continue grouping;
+            }
+        }
+    }
+
+    // method to shuffle the passed arrayList
     public static void shuffle(List<?> list) {
         Random random = new Random();
         Object[] arr = list.toArray();
 
+        // Sets iteration to == list.size and decrements by 1 each time.
         for (int i = list.size(); i > 1; i--) {
+            // pulls from a random index location, places it in a new location in a holding
+            // array
             int j = random.nextInt(i);
             Object tmp = arr[i - 1];
             arr[i - 1] = arr[j];
             arr[j] = tmp;
         }
 
+        // ListIterator method to take items in holding array and pass them back to the
+        // main method
         ListIterator it = list.listIterator();
         for (int i = 0; i < arr.length; i++) {
             it.next();
@@ -26,50 +89,27 @@ public class randomGroups {
         }
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        List<String> list = new ArrayList<String>(Arrays.asList());
-        Scanner input = new Scanner(System.in);
+    // put a method here that trys to have the user select an input method FROMfile
+    // or MANUAL
+    public static void inputSelect() throws InterruptedException {
+        System.out.println("Enter 'F' to load class information from the CSV file, " +
+                "or enter 'M' to manually enter your class information: ");
 
-        System.out.println(
-                "Enter a student's name and then press enter to provide additional names. When finished, type 'stop'");
-
-        try {
-            FileWriter save = new FileWriter("save_list.csv");
-            while (true) {
-                String studentName = input.nextLine();
-                if ("stop".equalsIgnoreCase(studentName)) {
-                    break;
-                }
-                list.add(studentName);
-                save.write(studentName + ",");
-            }
-            System.out.println("Entered Students: " + list);
-            input.close();
-            save.close();
-        } catch (Exception e) {
-        }
-
-        int s = 0;
-        while (s < 10) {
-            shuffle(list);
-            s++;
-        }
-        System.out.println("Shuffling students.");
-        Thread.sleep(5000);
-        System.out.println("Below are your group assignments for the team presentations");
-        System.out.print("\n\t" + "Group" + "\t\t" + "Members");
-
-        int i = 0;
-        grouping: while (i < list.size()) {
-            int groupNumber = i / 2 + 1;
-            System.out.print("\n\t" + "Group " + groupNumber + ":\t" + list.get(i) + " & " + list.get(i + 1));
-            i += 2;
-            if (i == list.size() - 1) {
-                System.out.print(" & " + list.get(i));
+        String methodSelection = input.nextLine();
+        String choice = methodSelection.toLowerCase();
+        switch (choice) {
+            case "f":
+                System.out.println("Please enter file name, including the file type (e.g., .CSV).");
+                // add method call to file reader?
                 break;
-            } else {
-                continue grouping;
-            }
+            case "m":
+                System.out.println("Enter a student's name and then press enter to provide additional names. " +
+                        " When finished, type 'stop'");
+                break;
+            default:
+                System.out.println("Invalid selection." + "\t\tExiting program.");
+                Thread.sleep(3000);
+                System.exit(0);
         }
     }
 }
