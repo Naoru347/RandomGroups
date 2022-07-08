@@ -1,8 +1,12 @@
 
 /* 
- * This program (v. 0.2) takes a list of student names from the user
+ * This program (v. 0.5) takes a list of student names from the user
+ * Saves those names into a CSV file for later use
  * Randomizes that list of names,
  * And creates pairs for a group activity
+ * 
+ * Current interactivity also allows a use to select file or manual input
+ * NOTE: file input coming in a future version
  */
 import java.util.*;
 import java.io.FileWriter;
@@ -31,7 +35,7 @@ public class randomGroups {
                 save.write(studentName + ",");
             }
             // summarizes the student list and closes the file and inputStream
-            System.out.println("Entered Students: " + list);
+            System.out.println("Entered Students: " + list + "\nSaved to file: save_list.csv.");
             input.close();
             save.close();
         } catch (Exception e) {
@@ -93,7 +97,7 @@ public class randomGroups {
     // or MANUAL
     public static void inputSelect() throws InterruptedException {
         System.out.println("Enter 'F' to load class information from the CSV file, " +
-                "or enter 'M' to manually enter your class information: ");
+                "\n Or enter 'M' to manually enter your class information: ");
 
         String methodSelection = input.nextLine();
         String choice = methodSelection.toLowerCase();
