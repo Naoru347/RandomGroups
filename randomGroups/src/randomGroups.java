@@ -1,15 +1,13 @@
 
-/* 
- * This program (v. 0.5) takes a list of student names from the user
- * Saves those names into a CSV file for later use
- * Randomizes that list of names,
- * And creates pairs for a group activity
- * 
- * Current interactivity also allows a use to select file or manual input
- * NOTE: file input coming in a future version
- */
-import java.util.*;
+import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Random;
+import java.util.Scanner;
 
 public class randomGroups {
 
@@ -28,34 +26,33 @@ public class randomGroups {
                 String studentName = input.nextLine();
                 // control statement to exit data input
                 if ("stop".equalsIgnoreCase(studentName)) {
+                    System.out.println("Entered Students: " + list + "\nSaved to file: save_list.csv.");
                     break;
                 }
                 if ("y".equalsIgnoreCase(studentName)) {
-                    // here you'll call the method to read from a file and populate the array list
-                    // that way
-                    System.out.println("Please enter file name, including the file type (e.g., .CSV).");
-                    // method call to file reader listImport
+                    System.out.println("Please enter file name with the CSV extension.");
+                    list = listImport();
+                    System.out.println("Imported students are: " + list);
                     break;
                 } else if ("n".equalsIgnoreCase(studentName)) {
-                    System.out.println("At present, only .CSV files are accepted." +
-                            "\nPlease reformat your file and try again.");
-                    System.exit(0);
+                    System.out.println("Files must be in CSV format." +
+                            "\nExiting Program.");
+                    System.exit(-1);
                 }
                 // adds student name to the arrayList and to the CSV file, appending a comma
                 list.add(studentName);
                 save.write(studentName + ",");
             }
             // summarizes the student list and closes the file and inputStream
-            System.out.println("Entered Students: " + list + "\nSaved to file: save_list.csv.");
             input.close();
             save.close();
         } catch (Exception e) {
         }
         // runs shuffle method 100x
-        int s = 0;
-        while (s < 100) {
+
+        for (int s = 0; s < 100; s++) {
             shuffle(list);
-            s++;
+
         }
         // prints dummy 'processing' message, pauses 5000ms, formats output
         System.out.println("\nShuffling students.");
@@ -127,11 +124,23 @@ public class randomGroups {
                 System.exit(0);
         }
     }
-    /**
-     * Here you'll put your file import method listImport(). It'll need to import
-     * data from the
-     * CSV file, toss it into the
-     * arrayList and then pass that information back to the main method to create
-     * the groups and spit out information.
-     */
+
+    // A method to read user-supplied data from a CSV file into the ArrayList for
+    // shuffling
+    public static List<String> listImport() throws IOException {
+
+        List<String> list = new ArrayList<>(Arrays.asList());
+        String fileName = input.nextLine();
+        Scanner fileReader = new Scanner(new File(fileName));
+        fileReader.useDelimiter(",");
+
+        while (fileReader.hasNext()) {
+            String studentFileName = fileReader.next();
+            list.add(studentFileName);
+
+        }
+        return list;
+
+    }
+
 }
