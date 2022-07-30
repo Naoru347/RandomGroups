@@ -50,7 +50,7 @@ public class randomGroups {
         }
         // runs shuffle method 100x
 
-        for (int s = 0; s < 100; s++) {
+        for (int s = 0; s < 10; s++) {
             shuffle(list);
 
         }
@@ -138,15 +138,15 @@ public class randomGroups {
             while (fileReader.hasNext()) {
                 String studentFileName = fileReader.next();
                 list.add(studentFileName);
-
             }
 
             fileReader.close();
-
         } catch (FileNotFoundException e) {
             System.out.println("File not found. Please restart the program and try again.");
             System.exit(-1);
         }
+
         return list;
     }
+
 }
