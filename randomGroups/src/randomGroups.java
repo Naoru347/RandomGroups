@@ -1,7 +1,7 @@
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -94,10 +94,10 @@ public class randomGroups {
 
         // ListIterator method to take items in holding array and pass them back to the
         // main method
-        ListIterator it = list.listIterator();
+        ListIterator iter = list.listIterator();
         for (int i = 0; i < arr.length; i++) {
-            it.next();
-            it.set(arr[i]);
+            iter.next();
+            iter.set(arr[i]);
         }
     }
 
@@ -127,20 +127,26 @@ public class randomGroups {
 
     // A method to read user-supplied data from a CSV file into the ArrayList for
     // shuffling
-    public static List<String> listImport() throws IOException {
+    public static List<String> listImport() throws FileNotFoundException {
 
         List<String> list = new ArrayList<>(Arrays.asList());
-        String fileName = input.nextLine();
-        Scanner fileReader = new Scanner(new File(fileName));
-        fileReader.useDelimiter(",");
+        try {
+            String fileName = input.nextLine();
+            File sourceFile = new File(fileName);
+            Scanner fileReader = new Scanner(sourceFile);
+            fileReader.useDelimiter(",");
+            while (fileReader.hasNext()) {
+                String studentFileName = fileReader.next();
+                list.add(studentFileName);
 
-        while (fileReader.hasNext()) {
-            String studentFileName = fileReader.next();
-            list.add(studentFileName);
+            }
 
+            fileReader.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found. Please restart the program and try again.");
+            System.exit(-1);
         }
         return list;
-
     }
-
 }
